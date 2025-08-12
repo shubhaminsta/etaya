@@ -1,0 +1,314 @@
+"use client";
+
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { useRef } from "react";
+
+// Parallax hook
+function useParallax(value: MotionValue<number>, distance: number) {
+  // Start moving at 30% (0.3), end at 100% (1)
+  return useTransform(value, [0.3, 1], [distance, -700]);
+}
+
+export default function HeroSection() {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"], // top of element reaches bottom of screen → 0, bottom reaches top → 1
+  });
+
+  const y = useParallax(scrollYProgress, 700);
+
+  return (
+    <motion.div
+      ref={sectionRef}
+      style={{ y }}
+      // initial={{ opacity: 0, y: 50 }}
+      // animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="h-screen bg-amber-500 flex justify-center items-center scroll-snap"
+    >
+      <motion.div className="text-4xl font-bold">
+        Welcome to Hero Section
+      </motion.div>
+    </motion.div>
+  );
+}
+("use client");
+import React, { useEffect, useState } from "react";
+import {
+  motion,
+  MotionValue,
+  useSpring,
+  useTransform,
+  useScroll,
+  useAnimation,
+} from "framer-motion";
+// import {
+//   motion,
+//   MotionValue,
+//   useSpring,
+//   useTransform,
+// } from "motion/react";
+import { useRef } from "react";
+import { log } from "console";
+function useParallax(value: MotionValue<number>, distance: number) {
+  return useTransform(value, [0, 0.6], [0, -1000]);
+}
+
+import HeroSection from "../HeroSection/page";
+
+const Page = () => {
+  const { scrollY } = useScroll();
+  const ref = useRef(null);
+  const controls = useAnimation();
+
+  // Move vertically from 0 to -200px as scrollY goes from 0 to 400
+  const opacity = useTransform(scrollY, [0, 60], [0, 1]); // Fade in as scrollY goes from 0 to 60
+
+  const { scrollYProgress } = useScroll({ target: ref });
+  const pathLength = useTransform(scrollYProgress, [0, 0.8], [0, 1]); // Animate path between 10% and 40% scroll
+
+  const y = useParallax(scrollYProgress, 0);
+
+  const [showDiv, setShowDiv] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (v) => {
+      if (v >= 0.4) {
+        setShowDiv(true);
+      }
+    });
+
+    return () => unsubscribe(); // cleanup listener
+  }, [scrollYProgress]);
+
+  console.log("====================================");
+  console.log(y, "yyyyyyy", opacity);
+  console.log("====================================");
+
+  // Map scroll progress for path drawing (optional, if you still want the path animation)
+
+  // Animation for drawing the line (optional, keep if you want the path to animate)
+
+  //   // Trigger movement after line animation completes (optional)
+  //   useEffect(() => {
+  //     if (isLineComplete) {
+  //       controls.start({
+  //         x: xTransform, // Apply scroll-based transformations
+  //         y: yTransform,
+  //         transition: { type: "spring", stiffness: 100, damping: 20 },
+  //       });
+  //     }
+  //   }, [isLineComplete, controls, xTransform, yTransform]);
+
+  return (
+    <motion.div
+      ref={ref}
+      // style={{ y }}
+      className="flex justify-center min-h-[100vh] pt-[150px] items-start bg-green-400 relative"
+    >
+      {/* Text content */}
+      <div className="w-[686.25px] bg-amber-300 h-[213.62px]">
+        <div className="w-[683.36px] h-[128px] text-[#DD4D2B] text-[57px] leading-[64px] tracking-[-0.25px] font-['Francois_One']">
+          Lorem ipsum dolor sit amet consectetur.
+        </div>
+        <div className="w-[509.25px] h-[72px] text-black text-[16px] leading-[24px] tracking-[0.5px] font-['Open_Sans']">
+          Lorem ipsum dolor sit amet consectetur. Eu amet egestas a facilisis
+          parturient consequat sit phasellus. Et non habitant risus ut.
+        </div>
+      </div>
+      {/* SVGs */}
+      <div>
+        <svg
+          width="406"
+          height="243"
+          viewBox="0 0 406 243"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="mt-8"
+        >
+          <g opacity="0.25">
+            <path
+              d="M185.24 211.592C287.343 211.592 370.243 218.6 370.243 227.232C370.243 235.863 287.343 242.871 185.24 242.871C83.1372 242.871 0.237549 235.863 0.237549 227.232C0.237549 218.6 83.1372 211.592 185.24 211.592Z"
+              fill="#EE360B"
+            />
+            <path
+              d="M185.24 211.592C287.343 211.592 370.243 218.6 370.243 227.232C370.243 235.863 287.343 242.871 185.24 242.871C83.1372 242.871 0.237549 235.863 0.237549 227.232C0.237549 218.6 83.1372 211.592 185.24 211.592Z"
+              fill="#EE360B"
+            />
+          </g>
+          <g opacity="0.4">
+            <path
+              d="M201.294 219.835C293.627 219.835 368.594 223.447 368.594 227.896C368.594 232.345 293.627 235.957 201.294 235.957C108.961 235.957 33.9934 232.345 33.9934 227.896C33.9934 223.447 108.961 219.835 201.294 219.835Z"
+              fill="#DD4D2B"
+            />
+            <path
+              d="M201.294 219.835C293.627 219.835 368.594 223.447 368.594 227.896C368.594 232.345 293.627 235.957 201.294 235.957C108.961 235.957 33.9934 232.345 33.9934 227.896C33.9934 223.447 108.961 219.835 201.294 219.835Z"
+              fill="#DD4D2B"
+            />
+          </g>
+          <g opacity="0.4">
+            <path
+              d="M240.496 219.835C309.583 219.835 365.677 223.447 365.677 227.896C365.677 232.345 309.583 235.957 240.496 235.957C171.409 235.957 115.315 232.345 115.315 227.896C115.315 223.447 171.409 219.835 240.496 219.835Z"
+              fill="#DD4D2B"
+            />
+            <path
+              d="M240.496 219.835C309.583 219.835 365.677 223.447 365.677 227.896C365.677 232.345 309.583 235.957 240.496 235.957C171.409 235.957 115.315 232.345 115.315 227.896C115.315 223.447 171.409 219.835 240.496 219.835Z"
+              fill="#DD4D2B"
+            />
+          </g>
+          <path
+            d="M341.812 120.861C335.705 150.187 324.013 176.382 306.736 199.475C297.683 195.268 287.035 196.281 279.025 202.239C260.49 216.027 237.444 224.195 212.587 224.195C210.623 224.195 208.659 224.134 206.695 224.042C146.332 220.879 98.7054 169.749 101.222 107.994C103.523 50.9984 149.616 4.25985 206.541 1.2504C240.881 -0.561413 272.059 13.1961 293.663 36.074C308.792 52.0732 319.226 72.6173 322.755 95.4032C324.473 106.55 331.593 116.131 341.812 120.861Z"
+            fill="#F1542F"
+            fill-opacity="0.53"
+          />
+          <path
+            d="M341.8 120.861C335.693 150.187 324.001 176.382 306.724 199.475C297.671 195.265 287.022 196.281 279.013 202.239C260.478 216.024 237.431 224.192 212.575 224.192C210.611 224.192 208.647 224.134 206.683 224.042C146.32 220.876 98.6932 169.749 101.21 107.994C103.511 50.9984 149.604 4.25985 206.529 1.25039C240.868 -0.56449 272.047 13.193 293.651 36.074C308.78 52.0732 319.214 72.6173 322.743 95.4032C324.461 106.55 331.581 116.131 341.8 120.861Z"
+            stroke="#DD4D2B"
+            stroke-width="2"
+            stroke-miterlimit="10"
+          />
+          <path
+            d="M258.471 153.559L247.209 148.554C240.491 145.575 232.451 146.895 227.476 152.3C224.193 155.862 222.566 160.591 226.955 166.365C236.836 179.385 249.053 167.01 254.546 159.977C256.108 158.012 257.397 155.862 258.471 153.559Z"
+            stroke="#EE360B"
+            stroke-width="2"
+            stroke-miterlimit="10"
+          />
+          <path
+            d="M273.293 120.148L262.031 115.143C255.313 112.164 250.86 105.316 251.536 98.0073C251.965 93.186 254.389 88.7947 261.601 88.1805C277.865 86.7679 276.914 104.149 275.41 112.904C274.981 115.419 274.247 117.814 273.293 120.148Z"
+            stroke="#EE360B"
+            stroke-width="2"
+            stroke-miterlimit="10"
+          />
+          <path
+            d="M332.489 146.404L306.037 134.676L293.516 129.115L273.692 120.336L273.293 120.148C273.17 120.458 273.048 120.735 272.925 121.039L265.897 136.857L258.904 152.702C258.778 152.979 258.624 153.283 258.471 153.559L258.87 153.747L288.146 166.703L290.417 167.716L317.698 179.815"
+            stroke="#EE360B"
+            stroke-width="2"
+            stroke-miterlimit="10"
+          />
+          <path
+            d="M399.032 154.299C398.326 166.276 395.684 177.761 391.483 188.447C387.279 199.134 381.448 208.991 374.325 217.743C373.254 219.064 372.147 220.354 371.045 221.613C368.13 224.865 363.431 225.758 359.473 223.947L306.724 199.472C324.001 176.379 335.69 150.184 341.8 120.858L393.382 144.78C397.037 146.469 399.308 150.246 399.032 154.299Z"
+            fill="white"
+          />
+          <path
+            d="M133.8 98.1301C180.979 50.9186 252.932 43.6284 307.767 76.241C302.965 62.4128 295.044 49.4231 284.003 38.3741C244.91 -0.748725 181.519 -0.748725 142.423 38.3741C119.398 61.4179 109.952 92.8912 114.049 122.869C119.601 114.092 126.155 105.777 133.8 98.1301Z"
+            fill="#DD4D2B"
+          />
+          <path
+            d="M341.8 129.754L395.613 155.359"
+            stroke="#CECECE"
+            stroke-width="4"
+            stroke-miterlimit="10"
+          />
+          <path
+            d="M387.656 190.784C386.386 192.347 385.078 193.874 383.771 195.363C380.322 199.214 374.767 200.267 370.081 198.124L322.077 175.854C317.722 183.801 312.871 191.472 307.393 198.793L360.142 223.268C364.1 225.08 368.795 224.189 371.714 220.934C372.819 219.675 373.92 218.385 374.997 217.068C382.114 208.313 387.948 198.455 392.152 187.772C392.904 185.856 393.588 183.909 394.238 181.943C392.161 184.98 389.973 187.938 387.656 190.784Z"
+            fill="#CECECE"
+          />
+          <path
+            d="M160.756 46.7637C176.931 29.1093 199.72 21.2325 221.818 23.4681"
+            stroke="white"
+            stroke-width="2"
+          />
+          <path
+            d="M263.776 42.2956C256.629 35.7393 248.509 30.872 239.945 27.6783"
+            stroke="white"
+            stroke-width="2"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+          />
+          <path
+            d="M399.032 154.299C398.326 166.276 395.684 177.761 391.483 188.447C387.279 199.134 381.448 208.991 374.325 217.743C373.254 219.064 372.147 220.354 371.045 221.613C368.13 224.865 363.431 225.758 359.473 223.947L306.724 199.472C324.001 176.379 335.69 150.184 341.8 120.858L393.382 144.78C397.037 146.469 399.308 150.246 399.032 154.299Z"
+            stroke="#393939"
+            stroke-width="2"
+            stroke-miterlimit="10"
+          />
+          <path
+            d="M382.694 208.135C389.411 197.23 394.324 185.069 396.96 172.083L398.762 173.032C404.172 175.887 406.888 182.097 405.363 188.024C404.016 193.262 401.818 198.231 398.826 202.951C395.402 208.35 388.61 210.554 382.694 208.135Z"
+            fill="#393939"
+          />
+          <path
+            d="M397.077 153.154L353.231 219.082L341.993 213.868L388.248 144.319L391.719 145.937C394.631 147.295 396.635 150.031 397.077 153.154Z"
+            stroke="#393939"
+            stroke-width="2"
+            stroke-miterlimit="2"
+          />
+          <path
+            d="M354.498 128.685L322.841 176.299C331.786 159.928 338.258 142.172 342.26 123.001L354.498 128.685Z"
+            stroke="#393939"
+            stroke-width="2"
+            stroke-miterlimit="2"
+          />
+          <path
+            d="M391.339 183.924C390.869 185.251 390.396 186.516 389.896 187.812C385.867 198.059 380.279 207.511 373.451 215.901C372.42 217.169 371.361 218.407 370.302 219.61C369.066 221.026 367.476 221.938 365.739 222.377L391.339 183.924Z"
+            stroke="#393939"
+            stroke-width="2"
+            stroke-miterlimit="2"
+          />
+          <path
+            d="M388.248 144.319L341.993 213.871L330.752 208.657L376.977 139.108L388.248 144.319Z"
+            stroke="#393939"
+            stroke-width="2"
+            stroke-miterlimit="2"
+          />
+          <path
+            d="M376.98 139.105L330.752 208.657L319.508 203.412L365.739 133.893L376.98 139.105Z"
+            stroke="#393939"
+            stroke-width="2"
+            stroke-miterlimit="2"
+          />
+          <path
+            d="M365.736 133.896L319.511 203.415L308.624 198.378C313.92 191.312 318.655 183.955 322.838 176.299L354.498 128.688L365.736 133.896Z"
+            stroke="#393939"
+            stroke-width="2"
+            stroke-miterlimit="2"
+          />
+          <path
+            d="M397.077 153.154C397.163 153.802 397.16 154.419 397.135 155.067C396.543 165.109 394.548 174.797 391.338 183.893V183.924L365.736 222.377C363.618 222.967 361.295 222.823 359.203 221.849L353.231 219.082L397.077 153.154Z"
+            stroke="#393939"
+            stroke-width="2"
+            stroke-miterlimit="2"
+          />
+        </svg>
+
+        {/* Animated SVG */}
+        <motion.div
+          className="absolute right-[16%] top-[380px]"
+          //   style={{ y: yTransform }} // Apply scroll-based position transforms
+          animate={controls}
+        >
+          <motion.svg
+            width="462"
+            height="416"
+            viewBox="0 0 462 416"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ opacity }} // Apply scroll-based opacity
+          >
+            <motion.path
+              d="M425.851 2.86139V2.86139C484.506 42.2982 464.585 133.18 394.812 144.465L72.2193 196.643C-22.2236 211.919 -20.1402 348.492 74.7247 360.879L103.09 364.584L215.913 376.265C235.203 378.262 249.862 394.517 249.862 413.91V413.91"
+              stroke="#DD4D2B"
+              strokeWidth="3"
+              strokeLinecap="square"
+              strokeDasharray="1"
+              style={{ pathLength: pathLength }} // Keep path drawing animation if desired
+            />
+          </motion.svg>
+        </motion.div>
+      </div>
+      {/* Black overlay div */}
+      {/* <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="absolute inset-0 "
+        style={{ opacity }}
+      >
+        {" "}
+        <HeroSection />
+      </motion.div> */}
+    </motion.div>
+  );
+};
+
+export default Page;
