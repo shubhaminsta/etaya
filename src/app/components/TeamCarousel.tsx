@@ -27,7 +27,8 @@ const TeamCarousel: React.FC<TeamCarouselProps> = ({ data }) => {
   const swiperRef = useRef(null);
 
   return (
-    <section className="team-section-container bg-[#F9F6F0] py-16">
+    <section className="team-section-container  ">
+      {/* <section className="team-section-container bg-[#F9F6F0] py-16"> */}
       <div className="max-w-[1040px] mx-auto relative">
         {/* Title */}
         {/* <div className="text-center mb-10">
@@ -40,7 +41,7 @@ const TeamCarousel: React.FC<TeamCarouselProps> = ({ data }) => {
         </div> */}
 
         {/* Scroll Buttons */}
-        <div className="flex justify-end gap-2 mb-4">
+        {/* <div className="flex justify-end gap-2 mb-4">
           <button
             id="prev"
             className="buzz-prev bg-orange-400 hover:bg-[#E9EAEB] transition-all duration-300 p-[10px] rounded-full"
@@ -53,7 +54,7 @@ const TeamCarousel: React.FC<TeamCarouselProps> = ({ data }) => {
           >
             <IoMdArrowForward color="#0A2540" size={20} />
           </button>
-        </div>
+        </div> */}
 
         {/* Carousel */}
         <Swiper

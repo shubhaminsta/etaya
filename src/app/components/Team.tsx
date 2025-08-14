@@ -16,12 +16,12 @@ const Team = () => {
   });
 
   // Define animation ranges for staggered visibility
-  const lineProgressFirst = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
-  const textOpacityTitle = useTransform(scrollYProgress, [0.2, 0.25], [0, 1]);
+  const lineProgressFirst = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
+  const textOpacityTitle = useTransform(scrollYProgress, [0.2, 0.25], [0.2, 1]);
   const textOpacitySubtitle = useTransform(
     scrollYProgress,
     [0.2, 0.25],
-    [0, 1]
+    [0.2, 1]
   );
   const carouselOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
   const lineProgressSecond = useTransform(
@@ -29,7 +29,7 @@ const Team = () => {
     [0.25, 0.35],
     [0, 1]
   );
-  const lineProgressThird = useTransform(scrollYProgress, [0.6, 0.7], [0, 1]);
+  const lineProgressThird = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     console.log("Scroll progress:", latest); // value between 0 and 1
@@ -61,89 +61,112 @@ const Team = () => {
   };
 
   return (
-    <div className="relative bg-[#F9F6F0] w-full max-w-[1440px]" ref={ref}>
-      <svg
-        width="105"
-        height="251"
-        viewBox="0 0 105 251"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <motion.path
-          d="M2.05078 0.775879V148.93C2.05078 204.159 46.8223 248.93 102.051 248.93H104.514"
-          stroke="#EE360B"
-          strokeWidth="4"
-          initial={{ pathLength: 0 }}
-          style={{ pathLength: lineProgressFirst }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-        />
-      </svg>
-
-      <div className="max-w-6xl mx-auto px-4 relative">
-        <motion.h1
-          className="text-4xl font-bold text-orange-600"
-          style={{ opacity: textOpacityTitle }}
-          initial={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {teamData.title}
-        </motion.h1>
-        <motion.p
-          className="mt-4 text-lg text-gray-600"
-          style={{ opacity: textOpacitySubtitle }}
-          initial={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {teamData.subtitle}
-        </motion.p>
-
+    <div ref={ref} className="w-full h-full bg-[#F9F6F0]  ">
+      {" "}
+      {/* <div className="relative bg-pink-500 w-full max-w-[1440px] " ref={ref}> */}
+      <div className="relative w-full mx-auto  max-w-[1440px] px-[200px] mt-[120px]  ">
         <svg
-          width="717"
-          height="129"
-          viewBox="0 0 717 129"
+          width="105"
+          height="251"
+          viewBox="0 0 105 251"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="ml-[100px]"
+          className="absolute -top-[120px] left-[80px]"
         >
           <motion.path
-            d="M0.283691 2.74219L610.793 2.74176C661.906 2.74173 704.791 41.2856 710.226 92.1082L714.115 128.474"
+            d="M2.05078 0.775879V148.93C2.05078 204.159 46.8223 248.93 102.051 248.93H104.514"
             stroke="#EE360B"
-            stroke-width="4"
+            strokeWidth="4"
             initial={{ pathLength: 0 }}
-            style={{ pathLength: lineProgressSecond }}
+            style={{ pathLength: lineProgressFirst }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
+          />
+          <path
+            d="M2.05078 0.775879V148.93C2.05078 204.159 46.8223 248.93 102.051 248.93H104.514"
+            stroke="#EE360B"
+            strokeWidth="4"
+            style={{ opacity: 0.2 }}
           />
         </svg>
 
-        <motion.div
-          className="mt-4 bg-amber-300"
-          style={{ opacity: carouselOpacity }}
-          initial={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <TeamCarousel data={teamData} />
-        </motion.div>
-      </div>
+        <div className="max-w-6xl mx-auto px-4 relative">
+          <motion.h1
+            className="font-['Francois_One'] font-normal text-[72px] leading-[80px] text-left text-[#DD4D2B]"
+            style={{ opacity: textOpacityTitle }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {teamData.title}
+          </motion.h1>
+          <motion.p
+            className="font-['Open_Sans'] font-normal text-[16px] leading-[24px] tracking-[0.5px] text-black max-w-[503.81px]"
+            style={{ opacity: textOpacitySubtitle }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {teamData.subtitle}
+          </motion.p>
 
-      <div className=" relative h-[180px]">
-        {" "}
-        <svg
-          width="4"
-          height="172"
-          viewBox="0 0 4 172"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute right-[218px] bottom-0"
-        >
-          <motion.path
-            d="M1.875 0.755859V171.651"
-            stroke="#DD4D2B"
-            strokeWidth="3"
-            initial={{ pathLength: 0 }}
-            style={{ pathLength: lineProgressThird }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          />
-        </svg>
+          <svg
+            width="717"
+            height="129"
+            viewBox="0 0 717 129"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="ml-[100px]"
+          >
+            <motion.path
+              d="M0.283691 2.74219L610.793 2.74176C661.906 2.74173 704.791 41.2856 710.226 92.1082L714.115 128.474"
+              stroke="#EE360B"
+              stroke-width="4"
+              initial={{ pathLength: 0 }}
+              style={{ pathLength: lineProgressSecond }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+            />
+            <motion.path
+              d="M0.283691 2.74219L610.793 2.74176C661.906 2.74173 704.791 41.2856 710.226 92.1082L714.115 128.474"
+              stroke="#EE360B"
+              stroke-width="4"
+              style={{ opacity: 0.2 }}
+            />
+          </svg>
+
+          <motion.div
+            className=" "
+            style={{ opacity: carouselOpacity }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <TeamCarousel data={teamData} />
+          </motion.div>
+        </div>
+
+        <div className=" relative h-[180px]">
+          {" "}
+          <svg
+            width="4"
+            height="172"
+            viewBox="0 0 4 172"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute right-[218px] bottom-0"
+          >
+            <motion.path
+              d="M1.875 0.755859V171.651"
+              stroke="#DD4D2B"
+              strokeWidth="3"
+              initial={{ pathLength: 0 }}
+              style={{ pathLength: lineProgressThird }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+            />
+            <motion.path
+              d="M1.875 0.755859V171.651"
+              stroke="#DD4D2B"
+              strokeWidth="3"
+              style={{ opacity: 0.2 }}
+            />
+          </svg>
+        </div>
       </div>
     </div>
   );

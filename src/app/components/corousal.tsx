@@ -34,22 +34,22 @@ const FeatureCarousel: React.FC<FeatureCarouselProps> = ({ data }) => {
   const swiperRef = useRef(null);
 
   return (
-    <div className="feature-section-container max-h-[358px] bg-amber-300">
-      <div className="max-w-[1040px] mx-auto  bg-red-400 relative">
-        <div className="flex justify-between items-end ">
+    <div className="feature-section-container relative   ">
+      <div className="max-w-[1040px] mx-auto   relative">
+        <div className="absolute -top-[50px] right-0 flex justify-between items-end ">
           {/* Scroll Buttons - top right */}
-          <div className="flex bg-blue-400 w-full   gap-2 justify-end">
+          <div className="flex  w-full   gap-2 justify-end">
             <button
               id="prev"
-              className="buzz-prev bg-orange-400 hover:bg-[#E9EAEB] transition-all duration-300 p-[10px] rounded-full"
+              className="buzz-prev bg-[#DD4D2B] cursor-pointer transition-all duration-300 p-[10px] rounded-full"
             >
-              <IoMdArrowBack color="#0A2540" size={20} />
+              <IoMdArrowBack color="white" size={20} />
             </button>
             <button
               id="next"
-              className="buzz-next bg-white hover:bg-[#E9EAEB] transition-all duration-300 p-[10px] rounded-full"
+              className="buzz-next bg-[#DD4D2B]  cursor-pointer   transition-all duration-300 p-[10px] rounded-full"
             >
-              <IoMdArrowForward color="#0A2540" size={20} />
+              <IoMdArrowForward color="white" size={20} />
             </button>
           </div>
         </div>
@@ -83,13 +83,13 @@ const FeatureCarousel: React.FC<FeatureCarouselProps> = ({ data }) => {
           >
             {data.feature.map((item, index) => (
               <SwiperSlide key={`feature-card-${index}`}>
-                <div className="flex flex-col md:flex-row bg-green-500 h-full">
+                <div className="flex flex-col md:flex-row h-full">
                   {/* Left side image - 60% width */}
-                  <div className="md:w-[60%] w-full">
+                  <div className="md:w-[60%] bg-[#7C3AED] w-full">
                     <Image
                       src={item.src}
                       alt={item.alt}
-                      width={800}
+                      width={594}
                       height={356}
                       className="object-cover w-full h-full"
                     />
@@ -98,10 +98,10 @@ const FeatureCarousel: React.FC<FeatureCarouselProps> = ({ data }) => {
                   {/* Right side content */}
                   <div className="md:w-[40%] w-full p-6 flex flex-col justify-between">
                     <div>
-                      <h3 className="text-[#111] font-montserratBold text-xl mb-3">
+                      <h3 className="text-[#FFFFFF] font-montserratBold text-xl mb-3">
                         {item.title}
                       </h3>
-                      <p className="text-[#111] font-firaSansRegular text-base leading-[150%]">
+                      <p className="font-['Open_Sans'] font-normal text-[16px] leading-[24px] tracking-[0.5px]">
                         {item.description}
                       </p>
                     </div>
@@ -110,7 +110,7 @@ const FeatureCarousel: React.FC<FeatureCarouselProps> = ({ data }) => {
                         href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition"
+                        className="bg-[#DD4D2B] rounded-[24px] px-6 py-2 text-white font-['Open_Sans'] font-normal text-[16px] leading-[24px] tracking-[0.5px]"
                       >
                         More
                       </Link>
