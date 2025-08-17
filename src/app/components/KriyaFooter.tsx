@@ -3,9 +3,9 @@
 import React from "react";
 import Link from "next/link";
 
-const Footer = () => {
+const KriyaFooter = () => {
   return (
-    <footer className="w-full bg-black  text-white px-[10%] py-12">
+    <footer className="w-full bg-[#7C3AED] rounded-t-3xl text-white px-[10%] py-12">
       <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-3 gap-10">
         {/* Left Section - Company */}
         <div className="col-span-2 md:col-span-1 ">
@@ -118,4 +118,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default KriyaFooter;

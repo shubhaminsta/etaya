@@ -72,7 +72,7 @@ const FeatureCarousel: React.FC<FeatureCarouselProps> = ({ data }) => {
             loop={true}
             breakpoints={{
               0: {
-                slidesPerView: 1.25,
+                slidesPerView: 1,
               },
               1024: {
                 slidesPerView: 1,
@@ -83,9 +83,9 @@ const FeatureCarousel: React.FC<FeatureCarouselProps> = ({ data }) => {
           >
             {data.feature.map((item, index) => (
               <SwiperSlide key={`feature-card-${index}`}>
-                <div className="flex flex-col md:flex-row h-full">
+                <div className="flex flex-col xl:flex-row h-full">
                   {/* Left side image - 60% width */}
-                  <div className="md:w-[60%] bg-[#7C3AED] w-full">
+                  <div className="xl:w-[60%] bg-[#7C3AED] w-full">
                     <Image
                       src={item.src}
                       alt={item.alt}

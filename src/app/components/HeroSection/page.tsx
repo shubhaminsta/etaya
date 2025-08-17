@@ -8,6 +8,7 @@ import {
   useScroll,
   useAnimation,
 } from "framer-motion";
+import HeroSectionMbl from "@/app/components/HeroSectionMbl";
 // import {
 //   motion,
 //   MotionValue,
@@ -28,47 +29,13 @@ const Page = () => {
   // const pathLength = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]); // Animate path between 10% and 40% scroll
   const pathLength = useTransform(scrollY, [0, 400], [0, 1]); // 0–400px scroll range
 
-  const [showDiv, setShowDiv] = useState(false);
-
-  // useEffect(() => {
-  //   const unsubscribe = scrollYProgress.on("change", (v) => {
-  //     if (v >= 0.4) {
-  //       setShowDiv(true);
-  //     }
-  //     console.log("====================================");
-  //     console.log(v, "yyyyyyy", opacity);
-  //     console.log("====================================");
-  //   });
-
-  //   return () => unsubscribe(); // cleanup listener
-  // }, [scrollYProgress]);
-
-  // console.log("====================================");
-  // console.log(y, "yyyyyyy", opacity);
-  // console.log("====================================");
-
-  // Map scroll progress for path drawing (optional, if you still want the path animation)
-
-  // Animation for drawing the line (optional, keep if you want the path to animate)
-
-  //   // Trigger movement after line animation completes (optional)
-  //   useEffect(() => {
-  //     if (isLineComplete) {
-  //       controls.start({
-  //         x: xTransform, // Apply scroll-based transformations
-  //         y: yTransform,
-  //         transition: { type: "spring", stiffness: 100, damping: 20 },
-  //       });
-  //     }
-  //   }, [isLineComplete, controls, xTransform, yTransform]);
-
   return (
     <div
       // style={{ y }}
       className="  h-full max-h-[1024px] w-full  items-start bg-[#F9F6F0] "
     >
       {/* Text content */}
-      <div className="max-w-[1440px]  px-[200px]  mx-auto h-full max-h-[1024px]   relative flex items-center justify-center  w-full overflow-hidden">
+      <div className="max-w-[1440px] hidden xl:flex  px-[200px]  mx-auto h-full max-h-[1024px]   relative  items-center justify-center  w-full overflow-hidden">
         {" "}
         <div className="w-[686.25px]  h-[213.62px] ">
           <div className="w-[683.36px] h-[128px] text-[#DD4D2B] text-[57px] leading-[64px] tracking-[-0.25px] font-['Francois_One']">
@@ -271,17 +238,8 @@ const Page = () => {
           </div>
         </div>
       </div>
-      {/* Black overlay div */}
-      {/* <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="absolute inset-0 "
-        style={{ opacity }}
-      >
-        {" "}
-        <HeroSection />
-      </motion.div> */}
+
+      <HeroSectionMbl />
     </div>
   );
 };

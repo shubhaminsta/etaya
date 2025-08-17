@@ -7,6 +7,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import TeamCarousel from "@/app/components/TeamCarousel";
+import TeamMbl from "./TeamMbl";
 
 const Team = () => {
   const ref = useRef(null);
@@ -64,7 +65,7 @@ const Team = () => {
     <div ref={ref} className="w-full h-full bg-[#F9F6F0]  ">
       {" "}
       {/* <div className="relative bg-pink-500 w-full max-w-[1440px] " ref={ref}> */}
-      <div className="relative w-full mx-auto  max-w-[1440px] px-[200px] mt-[120px]  ">
+      <div className="hidden xl:block  relative w-full  mx-auto  max-w-[1440px] px-[200px] mt-[120px]  ">
         <svg
           width="105"
           height="251"
@@ -168,6 +169,7 @@ const Team = () => {
           </svg>
         </div>
       </div>
+      <TeamMbl />
     </div>
   );
 };

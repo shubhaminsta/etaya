@@ -7,6 +7,8 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 
+import VisionMbl from "@/app/components/VisionMbl";
+
 const Vision = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -33,7 +35,7 @@ const Vision = () => {
       ref={ref}
       className="w-full bg-gradient-to-b flex from-[#F6C6B7] to-[#F9F6F0] justify-center"
     >
-      <div className="max-w-[1440px] px-[200px] justify-between flex w-full">
+      <div className=" max-w-[1440px] px-[200px] justify-between hidden xl:flex w-full">
         <div className="relative flex flex-col justify-start">
           <svg
             width="4"
@@ -313,6 +315,8 @@ const Vision = () => {
           </div>
         </div>
       </div>
+
+      <VisionMbl />
     </div>
   );
 };

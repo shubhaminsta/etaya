@@ -7,6 +7,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import FeatureCarousel from "@/app/components/corousal";
+import OurWorksMbl from "./OurWorksMbl";
 
 const OurWorks = () => {
   const ref = useRef(null);
@@ -72,7 +73,7 @@ const OurWorks = () => {
       ref={ref}
       className="bg-gradient-to-b overflow-hidden relative flex flex-col items-center  from-black to-purple-600 w-full h-full"
     >
-      <div className="relative w-full  max-w-[1440px] px-[200px] mt-[200px] mb-[259px] ">
+      <div className="relative w-full hidden  xl:block max-w-[1440px] px-[200px] mt-[200px] mb-[259px] ">
         <svg
           width="106"
           height="774"
@@ -141,6 +142,7 @@ const OurWorks = () => {
           </div>
         </div>
       </div>
+      <OurWorksMbl />
     </div>
   );
 };

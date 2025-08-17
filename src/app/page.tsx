@@ -6,15 +6,17 @@ import TeamSection from "./components/Team";
 import Resolution from "./components/Resolution";
 import Testimonials from "@/app/components/Testimonials";
 import Blogs from "@/app/components/Blogs";
+import Footer from "@/app/components/Footer";
 export default function ScrollSections() {
   return (
     <div className="   scroll-smooth">
       <section className="h-screen  bg-pink-500 flex items-center justify-center text-white text-5xl">
         <HeroSection />
       </section>
-      <section className=" snap-start  flex items-center justify-center  text-5xl">
+
+      {/* <section className=" snap-start  flex items-center justify-center  text-5xl">
         <AboutUs />
-      </section>
+      </section> */}
       <section className=" snap-start  flex items-center justify-center text-white text-5xl">
         <Vision />
       </section>
@@ -32,6 +34,9 @@ export default function ScrollSections() {
       </section>
       <section className=" snap-start  flex items-center justify-center text-white text-5xl">
         <Blogs />
+      </section>
+      <section className=" snap-start  flex items-center justify-center text-white text-5xl">
+        <Footer />
       </section>
     </div>
   );

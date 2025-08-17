@@ -27,7 +27,7 @@ const TeamCarousel: React.FC<TeamCarouselProps> = ({ data }) => {
   const swiperRef = useRef(null);
 
   return (
-    <section className="team-section-container  ">
+    <section className="  team-section-container  ">
       {/* <section className="team-section-container bg-[#F9F6F0] py-16"> */}
       <div className="max-w-[1040px] mx-auto relative">
         {/* Title */}
