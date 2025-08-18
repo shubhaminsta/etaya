@@ -69,13 +69,13 @@ export default function BlogsMbl() {
         </div>
         {/* Animated Carousel */}
         <motion.div
-          className="mt-2 "
+          className="mt-2 w-full "
           style={{ opacity: carouselOpacity }}
           transition={{ ease: "easeOut", duration: 0.5 }}
         >
           <BlogsCarousel />
         </motion.div>
-        <div className="w-full">
+        <div className="w-full  flex justify-center items-center ">
           <motion.div
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}

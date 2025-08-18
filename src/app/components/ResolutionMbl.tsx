@@ -5,7 +5,7 @@ const ResolutionMbl = () => {
   const { scrollYProgress } = useScroll();
 
   // Animation for the line (pathLength from 0 to 1)
-  const lineProgress = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+  const lineProgress = useTransform(scrollYProgress, [0.2, 0.6], [0, 1]);
 
   // Animation for circles (opacity from 0 to 1, staggered)
   const circleOpacity1 = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
@@ -22,7 +22,7 @@ const ResolutionMbl = () => {
             viewBox="0 0 504 787"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-0 left-0 w-full h-full z-10"
+            className="absolute top-0 left-5  w-full h-full z-10"
             preserveAspectRatio="xMidYMid meet"
           >
             <motion.path

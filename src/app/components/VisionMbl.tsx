@@ -16,7 +16,7 @@ const VisionMbl = () => {
   });
 
   // Scroll progress transformations
-  const lineProgressFirst = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+  const lineProgressFirst = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
   const lineProgressSecond = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
   const textOpacity = useTransform(scrollYProgress, [0.3, 0.36], [0, 1]);
 
@@ -70,7 +70,7 @@ const VisionMbl = () => {
             economic and development needs.
           </motion.p>
         </div>
-        <div className="w-full bg-amber-500 flex justify-center items-center mt-[50px]">
+        <div className="w-full  flex justify-center items-center mt-[50px]">
           <div className="w-full overflow-hidden">
             <div className="relative ">
               <div className="flex flex-col items-center">
@@ -86,6 +86,12 @@ const VisionMbl = () => {
                     stroke="#DD4D2B"
                     strokeWidth="3"
                     style={{ pathLength: lineProgressFirst }}
+                  />
+                  <motion.path
+                    d="M118.379 281.673L118.379 408.673"
+                    stroke="#DD4D2B"
+                    strokeWidth="3"
+                    style={{ opacity: 0.2 }}
                   />
                   {/* Animated Circle 1 */}
                   <motion.circle

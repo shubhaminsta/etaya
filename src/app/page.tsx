@@ -7,11 +7,15 @@ import Resolution from "./components/Resolution";
 import Testimonials from "@/app/components/Testimonials";
 import Blogs from "@/app/components/Blogs";
 import Footer from "@/app/components/Footer";
+import BottomBar from "@/app/components/BottomBar";
 export default function ScrollSections() {
   return (
     <div className="   scroll-smooth">
-      <section className="h-screen  bg-pink-500 flex items-center justify-center text-white text-5xl">
+      <section className=" flex items-center justify-center text-white text-5xl">
         <HeroSection />
+      </section>
+      <section className="  flex items-center justify-center text-white text-5xl">
+        <BottomBar />
       </section>
 
       {/* <section className=" snap-start  flex items-center justify-center  text-5xl">

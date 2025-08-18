@@ -244,7 +244,7 @@ export default function Testimonials() {
         </motion.div>
 
         {/* Testimonials Cards */}
-        <div className="flex justify-center flex-wrap gap-6 w-full max-w-lg bg-amber-500">
+        <div className="flex justify-center flex-wrap gap-6 w-full max-w-lg ">
           {testimonials.map((t, index) => (
             <motion.div
               key={index}

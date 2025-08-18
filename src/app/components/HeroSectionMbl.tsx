@@ -20,22 +20,22 @@ const HeroSectionMbl = () => {
 
   // const { scrollYProgress } = useScroll({ target: ref });
   // const pathLength = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]); // Animate path between 10% and 40% scroll
-  const pathLength = useTransform(scrollY, [0, 400], [0, 1]); // 0–400px scroll range
+  const pathLength = useTransform(scrollY, [200, 700], [0, 1]); // 0–400px scroll range
   return (
-    <div className="flex flex-col xl:hidden  items-center justify-center w-full h-full pt-[350px] ">
-      <div className="relative">
+    <div className="flex flex-col xl:hidden  items-center justify-center w-full gap-[100px] pb-[350px]  pt-[200px] ">
+      <div className="relative h-[250px] mx-auto">
         {/* Heading */}
-        <h3 className="font-[400] text-[45px] leading-[52px] font-[Francois_One] text-[#DD4D2B]">
+        <h3 className="font-[400] text-[45px] text-center leading-[52px] font-[Francois_One] text-[#DD4D2B]">
           Lorem ipsum dolor sit amet consectetur.
         </h3>
 
         {/* Paragraph */}
-        <p className=" font-[400] text-[16px] leading-[24px] tracking-[0.5px] font-[Open_Sans] text-black">
+        <p className=" font-[400] text-[16px] text-center leading-[24px] tracking-[0.5px] font-[Open_Sans] text-black">
           Lorem ipsum dolor sit amet consectetur. Eu amet egestas a facilisis
           parturient consequat sit phasellus.. Et non habitant risus ut.
         </p>
       </div>
-      <div ref={ref}>
+      <div ref={ref} className="">
         <svg
           width="380"
           height="357"
@@ -198,11 +198,21 @@ const HeroSectionMbl = () => {
               />
             </g>
           </g>
+          <motion.path
+            d="M338.353 230.367V230.367C356.37 242.036 350.453 269.782 329.244 273.087L204.522 292.518C177.421 296.74 177.46 335.784 204.569 339.953L230.46 343.935L316.194 348.367C320.152 348.572 323.256 351.841 323.256 355.803V355.803"
+            stroke="#DD4D2B"
+            stroke-width="2"
+            stroke-linecap="square"
+            style={{
+              pathLength: pathLength,
+            }}
+          />
           <path
             d="M338.353 230.367V230.367C356.37 242.036 350.453 269.782 329.244 273.087L204.522 292.518C177.421 296.74 177.46 335.784 204.569 339.953L230.46 343.935L316.194 348.367C320.152 348.572 323.256 351.841 323.256 355.803V355.803"
             stroke="#DD4D2B"
             stroke-width="2"
             stroke-linecap="square"
+            style={{ opacity: 0.2 }}
           />
           <defs>
             <clipPath id="clip0_1_3">
