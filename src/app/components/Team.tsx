@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -14,6 +14,25 @@ const Team = () => {
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
+  });
+
+  // ✅ Typewriter effect for title
+  const [displayedTitle, setDisplayedTitle] = useState("");
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const fullTitle = "Our Team";
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest >= 0.2 && !hasAnimated) {
+      setHasAnimated(true);
+      let index = 0;
+      const interval = setInterval(() => {
+        setDisplayedTitle(fullTitle.slice(0, index + 1));
+        index++;
+        if (index === fullTitle.length) {
+          clearInterval(interval);
+        }
+      }, 100); // typing speed
+    }
   });
 
   // Define animation ranges for staggered visibility
@@ -97,7 +116,7 @@ const Team = () => {
             initial={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {teamData.title}
+            {displayedTitle}
           </motion.h1>
           <motion.p
             className="font-['Open_Sans'] font-normal text-[16px] leading-[24px] tracking-[0.5px] text-black max-w-[503.81px]"

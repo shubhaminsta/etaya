@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -68,6 +68,25 @@ const OurWorks = () => {
     ],
   };
 
+  // ✅ Typewriter effect for title
+  const [displayedTitle, setDisplayedTitle] = useState("");
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const fullTitle = "Our Works";
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest >= 0.2 && !hasAnimated) {
+      setHasAnimated(true);
+      let index = 0;
+      const interval = setInterval(() => {
+        setDisplayedTitle(fullTitle.slice(0, index + 1));
+        index++;
+        if (index === fullTitle.length) {
+          clearInterval(interval);
+        }
+      }, 100); // typing speed
+    }
+  });
+
   return (
     <div
       ref={ref}
@@ -124,7 +143,7 @@ const OurWorks = () => {
               className="font-['Francois_One'] font-normal text-[72px] leading-[80px] tracking-[-0.25px] "
               style={{ opacity: textOpacityTitle }}
             >
-              {sampleData.title}
+              {displayedTitle}
             </motion.h2>
             <motion.p
               className="font-['Open_Sans'] max-w-[594px] font-normal text-[16px] leading-[24px] tracking-[0.5px]"

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   motion,
   useScroll,
@@ -11,6 +11,9 @@ import VisionMbl from "@/app/components/VisionMbl";
 
 const Vision = () => {
   const ref = useRef(null);
+  const svgRef = useRef(null); // Ref for the SVG (bulb)
+  const [isBulbOn, setIsBulbOn] = useState(false); // State for bulb on/off
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -18,32 +21,68 @@ const Vision = () => {
   const lineProgressFirst = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
   const lineProgressSecond = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
   const textOpacity = useTransform(scrollYProgress, [0.3, 0.36], [0, 1]);
-  // Add opacity transforms for circles
   const circleOpacity1 = useTransform(scrollYProgress, [0.3, 0.35], [0, 1]);
   const circleOpacity2 = useTransform(scrollYProgress, [0.4, 0.45], [0, 1]);
   const circleOpacity3 = useTransform(scrollYProgress, [0.5, 0.55], [0, 1]);
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log("Scroll progress:", latest); // value between 0 and 1
-  });
+  const [displayedText, setDisplayedText] = useState("");
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const fullText = "Our Vision";
 
-  const pipeRadius = 3; // pipe radius in px
-  const strokeWidth = pipeRadius * 1; // pipe thickness (diameter)
+  // Intersection Observer to detect when SVG (bulb) is in viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsBulbOn(true); // Turn bulb "on" when in viewport
+        } else {
+          setIsBulbOn(false); // Turn bulb "off" when out of viewport
+        }
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the SVG is visible
+      }
+    );
+
+    if (svgRef.current) {
+      observer.observe(svgRef.current);
+    }
+
+    return () => {
+      if (svgRef.current) {
+        observer.unobserve(svgRef.current);
+      }
+    };
+  }, []);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest >= 0.3 && !hasAnimated) {
+      setHasAnimated(true);
+      let index = 0;
+      const interval = setInterval(() => {
+        setDisplayedText(fullText.slice(0, index + 1));
+        index++;
+        if (index === fullText.length) {
+          clearInterval(interval);
+        }
+      }, 100);
+    }
+  });
 
   return (
     <div
       ref={ref}
       className="w-full bg-gradient-to-b flex from-[#F6C6B7] to-[#F9F6F0] justify-center"
     >
-      <div className=" max-w-[1440px] px-[200px] justify-between hidden xl:flex w-full">
-        <div className="relative flex flex-col justify-start">
+      <div className="max-w-[1440px] px-[200px] justify-between hidden xl:flex w-full">
+        <div className="relative left-[40px] flex flex-col justify-start">
           <svg
             width="4"
             height="419"
             viewBox="0 0 4 419"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="relative left-0 top-0"
+            className="relative top-0"
           >
             <motion.path
               d="M2 0L2 418.821"
@@ -60,10 +99,9 @@ const Vision = () => {
             />
           </svg>
 
-          {/* Content below */}
           <div className="flex flex-col items-start justify-center w-[596px]">
             <h2 className="text-4xl font-bold text-[#DD4D2B] mb-4">
-              Our Vision
+              <motion.span>{displayedText}</motion.span>
             </h2>
             <motion.p
               className="font-['Open_Sans'] text-black font-normal text-[16px] leading-relaxed tracking-normal"
@@ -82,8 +120,9 @@ const Vision = () => {
         </div>
         <div className="w-[547px]">
           <div>
-            <div className=" flex flex-col items-center">
+            <div className="flex flex-col items-center">
               <svg
+                ref={svgRef} // Attach ref to SVG
                 width="547"
                 height="923"
                 viewBox="0 0 547 923"
@@ -94,22 +133,28 @@ const Vision = () => {
                   cx="261.38"
                   cy="305.064"
                   r="161.458"
-                  fill="#F6C6B7"
+                  fill={isBulbOn ? "#F6C6B7" : "#A0A0A0"} // Toggle fill color
                   style={{ opacity: circleOpacity1 }}
+                  animate={{ fill: isBulbOn ? "#F6C6B7" : "#A0A0A0" }} // Animate color change
+                  transition={{ duration: 0.5 }} // Smooth transition
                 />
                 <motion.circle
                   cx="261.38"
                   cy="305.064"
                   r="145.253"
-                  fill="#EC967F"
+                  fill={isBulbOn ? "#EC967F" : "#808080"} // Toggle fill color
                   style={{ opacity: circleOpacity2 }}
+                  animate={{ fill: isBulbOn ? "#EC967F" : "#808080" }}
+                  transition={{ duration: 0.5 }}
                 />
                 <motion.circle
                   cx="261.38"
                   cy="305.064"
                   r="130.24"
-                  fill="#E6795D"
+                  fill={isBulbOn ? "#E6795D" : "#606060"} // Toggle fill color
                   style={{ opacity: circleOpacity3 }}
+                  animate={{ fill: isBulbOn ? "#E6795D" : "#606060" }}
+                  transition={{ duration: 0.5 }}
                 />
                 <g clip-path="url(#clip0_1_3)">
                   <mask
@@ -240,7 +285,6 @@ const Vision = () => {
                     </g>
                   </g>
                 </g>
-                {/* hwloo */}
                 <motion.path
                   d="M256.858 514.105L256.858 922.776"
                   stroke="#DD4D2B"

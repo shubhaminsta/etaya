@@ -28,7 +28,7 @@ const Resolution = () => {
           {/* Heading: Our Resolution */}
           <div className="w-[380px]">
             <motion.h1
-              className="font-francois text-[72px] text-[#DD4D2B] leading-[80px] font-normal"
+              className="font-francois text-[72px] whitespace-nowrap text-[#DD4D2B] leading-[80px] font-normal"
               style={{ opacity: textOpacity }}
               transition={{ ease: "easeOut", duration: 0.5 }}
             >

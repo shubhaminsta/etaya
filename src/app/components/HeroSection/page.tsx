@@ -32,11 +32,11 @@ const Page = () => {
   return (
     <div
       // style={{ y }}
-      className=" h-[907px] lg:h-[900px] w-full  items-start  "
+      className="bg-[#F9F6F0] h-[907px] lg:h-[900px] w-full  items-start  "
       // className=" h-[1024px] w-full  items-start bg-[#F9F6F0] "
     >
       {/* Text content */}
-      <div className="max-w-[1440px] hidden lg:flex h-full  px-[200px]   mx-auto pt-[70px]  relative  items-center justify-center  w-full overflow-hidden">
+      <div className="w-[1440px]  hidden lg:flex h-full  px-[200px]   mx-auto pt-[70px]  relative  items-center justify-center   overflow-hidden">
         {" "}
         <div className=" ">
           <div className="w-[683.36px] h-[128px] text-[#DD4D2B] text-[57px] leading-[64px] tracking-[-0.25px] font-['Francois_One']">

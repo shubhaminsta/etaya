@@ -16,32 +16,55 @@ const VisionMbl = () => {
   });
 
   // Scroll progress transformations
-  const lineProgressFirst = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
-  const lineProgressSecond = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
-  const textOpacity = useTransform(scrollYProgress, [0.3, 0.36], [0, 1]);
+  const lineProgressFirst = useTransform(scrollYProgress, [0.6, 0.65], [0, 1]);
+  const lineProgressSecond = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
 
-  // Circle animations: scale and opacity based on scroll progress
+  // Circle animations: scale, opacity, and rotation for spiral effect
   const circleScale1 = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
   const circleOpacity1 = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
+  const circleRotate1 = useTransform(scrollYProgress, [0.2, 0.35], [0, 360]); // Rotate 360 degrees
   const circleScale2 = useTransform(scrollYProgress, [0.3, 0.45], [0, 1]);
   const circleOpacity2 = useTransform(scrollYProgress, [0.3, 0.45], [0, 1]);
+  const circleRotate2 = useTransform(scrollYProgress, [0.3, 0.45], [0, -360]); // Reverse rotation
   const circleScale3 = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]);
   const circleOpacity3 = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]);
+  const circleRotate3 = useTransform(scrollYProgress, [0.4, 0.55], [0, 720]); // Double rotation for spiral effect
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     console.log("Scroll progress:", latest); // value between 0 and 1
   });
 
   const pipeRadius = 3; // pipe radius in px
-  const strokeWidth = pipeRadius * 1; // pipe thickness (diameter)
 
   return (
     <div
       ref={ref}
       className="xl:hidden flex flex-col items-center justify-center w-full h-full px-[5%]"
     >
-      <div className="w-full">
-        <div className="relative">
+      <div className="w-full flex flex-col items-center">
+        <div className=" w-[370px]  ">
+          <svg
+            width="5"
+            height="86"
+            viewBox="0 0 5 86"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <motion.path
+              d="M2 0.673218L2.68848 85.8003"
+              stroke="#DD4D2B"
+              stroke-width="3"
+              style={{ pathLength: lineProgressSecond }}
+            />
+            <path
+              d="M2 0.673218L2.68848 85.8003"
+              stroke="#DD4D2B"
+              stroke-width="3"
+              style={{ opacity: 0.2 }}
+            />
+          </svg>
+        </div>
+        <div className="relative px-[14px]">
           {/* Our Vision */}
           <motion.h2
             className="font-[400] text-[45px] leading-[52px] font-[Francois_One] text-[#DD4D2B]"
@@ -70,9 +93,9 @@ const VisionMbl = () => {
             economic and development needs.
           </motion.p>
         </div>
-        <div className="w-full  flex justify-center items-center mt-[50px]">
-          <div className="w-full overflow-hidden">
-            <div className="relative ">
+        <div className="w-full flex justify-center items-center mt-[50px]">
+          <div className="w-full overflow-hidden ">
+            <div className="relative">
               <div className="flex flex-col items-center">
                 <svg
                   width="257"
@@ -93,7 +116,7 @@ const VisionMbl = () => {
                     strokeWidth="3"
                     style={{ opacity: 0.2 }}
                   />
-                  {/* Animated Circle 1 */}
+                  {/* Animated Circle 1 with spiral rotation */}
                   <motion.circle
                     cx="122.879"
                     cy="123.173"
@@ -102,11 +125,13 @@ const VisionMbl = () => {
                     style={{
                       scale: circleScale1,
                       opacity: circleOpacity1,
+                      rotate: circleRotate1, // Apply rotation
                       originX: 0.5,
                       originY: 0.5,
                     }}
+                    transition={{ ease: "easeInOut" }}
                   />
-                  {/* Animated Circle 2 */}
+                  {/* Animated Circle 2 with spiral rotation */}
                   <motion.ellipse
                     cx="123.379"
                     cy="123.173"
@@ -116,11 +141,13 @@ const VisionMbl = () => {
                     style={{
                       scale: circleScale2,
                       opacity: circleOpacity2,
+                      rotate: circleRotate2, // Apply reverse rotation
                       originX: 0.5,
                       originY: 0.5,
                     }}
+                    transition={{ ease: "easeInOut" }}
                   />
-                  {/* Animated Circle 3 */}
+                  {/* Animated Circle 3 with spiral rotation */}
                   <motion.ellipse
                     cx="123.379"
                     cy="123.173"
@@ -130,9 +157,11 @@ const VisionMbl = () => {
                     style={{
                       scale: circleScale3,
                       opacity: circleOpacity3,
+                      rotate: circleRotate3, // Apply double rotation
                       originX: 0.5,
                       originY: 0.5,
                     }}
+                    transition={{ ease: "easeInOut" }}
                   />
                   <path
                     d="M154.253 217.275C131.87 221.402 110.086 220.701 88.8804 215.18C89.2398 207.604 85.4687 200.404 78.9778 196.481C63.9555 187.403 51.5907 173.537 44.4519 156.053C43.8878 154.671 43.3669 153.272 42.8677 151.864C27.7566 108.495 50.0443 60.3085 94.2072 44.3426C134.96 29.5926 181.075 48.5921 199.541 87.7705C210.677 111.405 209.955 137.288 200.066 159.056C193.157 174.293 181.702 187.532 166.688 196.559C159.34 200.969 154.645 208.729 154.253 217.275Z"
@@ -193,7 +222,7 @@ const VisionMbl = () => {
                     strokeLinecap="round"
                   />
                   <path
-                    d="M147.165 267.128C138.538 270.071 129.7 271.511 120.976 271.625C112.252 271.737 103.643 270.467 95.4413 267.97C94.2049 267.596 92.9794 267.187 91.7774 266.774C88.6525 265.657 86.6746 262.609 86.8122 259.304L88.879 215.17C110.085 220.691 131.868 221.39 154.252 217.265L152.239 260.42C152.101 263.476 150.096 266.158 147.165 267.128Z"
+                    d="M147.165 267.128C138.538 270.071 129.7 271.511 120.976 271.625C112.242 271.737 103.643 270.467 95.4413 267.97C94.2049 267.596 92.9794 267.187 91.7774 266.774C88.6525 265.657 86.6746 262.609 86.8122 259.304L88.879 215.17C110.085 220.691 131.868 221.39 154.252 217.265L152.239 260.42C152.101 263.476 150.096 266.158 147.165 267.128Z"
                     stroke="#393939"
                     strokeWidth="2"
                     strokeMiterlimit="10"

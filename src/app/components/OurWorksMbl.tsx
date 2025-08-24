@@ -53,7 +53,8 @@ const OurWorksMbl = () => {
   });
 
   // Scroll progress transformations
-  const lineProgressFirst = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+  const lineProgressFirst = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
+  const lineProgressSecond = useTransform(scrollYProgress, [0.4, 1], [0, 1]);
 
   // Smooth the scroll progress with a spring effect
   const springProgress = useSpring(scrollYProgress, {
@@ -67,16 +68,16 @@ const OurWorksMbl = () => {
   const lineProgress = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
 
   return (
-    <div className="xl:hidden bg-gradient-to-b from-black to-purple-600 w-full h-full flex flex-col items-center">
-      <div className="relative  pt-[100px]">
-        <div ref={ref}>
+    <div className="xl:hidden bg-gradient-to-b from-black to-purple-600 w-full h-full flex flex-col items-center pl-[20px]">
+      <div className="relative w-[330px] md:w-[625px] lg:w-[924px]   ">
+        <div ref={ref} className="  w-full flex justify-center  ">
           <motion.svg
             width="4"
             height="77"
             viewBox="0 0 4 77"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute left-[48%] top-0"
+            className="relative right-[20px]  top-0"
           >
             <motion.path
               d="M1.95605 0.138428V76.3452"
@@ -93,8 +94,31 @@ const OurWorksMbl = () => {
           </motion.svg>
         </div>
 
+        <div className="absolute top-[100px] -left-[24px]">
+          <svg
+            width="26"
+            height="745"
+            viewBox="0 0 26 745"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <motion.path
+              d="M25.1333 1.72046V1.72046C12.5499 1.72046 2.34912 11.9213 2.34912 24.5046V744.161"
+              stroke="#7C3AED"
+              stroke-width="3"
+              style={{ pathLength: lineProgressSecond }}
+            />
+            <motion.path
+              d="M25.1333 1.72046V1.72046C12.5499 1.72046 2.34912 11.9213 2.34912 24.5046V744.161"
+              stroke="#7C3AED"
+              stroke-width="3"
+              style={{ opacity: 0.2 }}
+            />
+          </svg>
+        </div>
+
         {/* Our Works */}
-        <h2 className="font-[400] text-[45px] leading-[52px] text-center font-[Francois_One] text-white">
+        <h2 className="font-[400] text-[45px] leading-[52px] ml-[20px]  text-left font-[Francois_One] text-white">
           Our Works
         </h2>
 
@@ -104,7 +128,7 @@ const OurWorksMbl = () => {
           parturient consequat sit phasellus.. Et non habitant risus ut.
         </p>
       </div>
-      <div className="w-[350px] mt-5  md:w-[625px] lg:w-[924px]">
+      <div className="w-[330px] mt-5  md:w-[625px] lg:w-[924px]">
         <FeatureCarousel data={sampleData} page="ourworks" />
       </div>
     </div>

@@ -20,10 +20,10 @@ const HeroSectionMbl = () => {
 
   // const { scrollYProgress } = useScroll({ target: ref });
   // const pathLength = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]); // Animate path between 10% and 40% scroll
-  const pathLength = useTransform(scrollY, [200, 700], [0, 1]); // 0–400px scroll range
+  const pathLength = useTransform(scrollY, [200, 400], [0, 1]); // 0–400px scroll range
   return (
     <div className="flex flex-col xl:hidden  items-center justify-center w-full gap-[100px] pb-[350px]  pt-[200px] ">
-      <div className="relative h-[250px] mx-auto">
+      <div className="relative h-[250px] mx-auto max-w-[350px]">
         {/* Heading */}
         <h3 className="font-[400] text-[45px] text-center leading-[52px] font-[Francois_One] text-[#DD4D2B]">
           Lorem ipsum dolor sit amet consectetur.

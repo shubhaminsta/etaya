@@ -1,11 +1,13 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import BlogsCarousel from "@/app/components/BlogsCarousel";
 import BlogsMbl from "@/app/components/BlogsMbl";
 
 export default function Blogs() {
   const sectionRef = useRef(null);
+  const svgRef = useRef(null); // Ref for the bulb SVG
+  const [isBulbOn, setIsBulbOn] = useState(false); // State for bulb on/off
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -15,15 +17,39 @@ export default function Blogs() {
   // Transform scroll progress for animations
   const linePathLength = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
   const textOpacity = useTransform(scrollYProgress, [0.2, 0.36], [0, 1]);
-  //   const textTranslateX = useTransform(scrollYProgress, [0.4, 0.6], [200, 0]); // Increased for gate-like effect
   const carouselOpacity = useTransform(scrollYProgress, [0.4, 0.5], [0, 1]);
 
+  // Intersection Observer to detect when bulb SVG enters/exits viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsBulbOn(true); // Turn bulb "on" when it enters the viewport
+        } else {
+          setIsBulbOn(false); // Turn bulb "off" when it exits the viewport
+        }
+      },
+      {
+        threshold: 0.9, // Trigger when 70% of the SVG is visible
+      }
+    );
+
+    if (svgRef.current) {
+      observer.observe(svgRef.current);
+    }
+
+    return () => {
+      if (svgRef.current) {
+        observer.unobserve(svgRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <section ref={sectionRef} className="bg-[#DD4D2B] w-full  ">
+    <section ref={sectionRef} className="bg-[#DD4D2B] w-full">
       <div className="hidden xl:block max-w-[1440px] w-full relative overflow-hidden">
-        {" "}
         <div className="flex w-full bg-yellow-200 flex-col md:flex-row items-center">
-          <div className="  absolute top-[230px] left-[200px] mx-auto text-left">
+          <div className="absolute top-[230px] left-[200px] mx-auto text-left">
             {/* Animated Heading */}
             <motion.h2
               className="text-white font-[Francois_One] text-5xl sm:text-6xl leading-[80px]"
@@ -65,16 +91,15 @@ export default function Blogs() {
               d="M546 0.772949L545.641 182.686C545.532 237.837 500.792 282.488 445.641 282.488H0.946289"
               stroke="white"
               strokeWidth="4"
-              style={{
-                opacity: 0.2,
-              }}
+              style={{ opacity: 0.2 }}
               transition={{ ease: "easeInOut", duration: 0.8 }}
             />
           </motion.svg>
 
-          {/* Bulb SVG - Always Visible */}
-          <motion.div initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
+          {/* Bulb SVG with on/off animation */}
+          <motion.div transition={{ duration: 0.5, ease: "easeInOut" }}>
             <svg
+              ref={svgRef}
               width="492"
               height="391"
               viewBox="0 0 492 391"
@@ -97,21 +122,27 @@ export default function Blogs() {
               </mask>
               <g mask="url(#mask0_167_8)">
                 <g opacity="0.25">
-                  <path
+                  <motion.path
                     d="M220.943 309.867C323.046 309.867 405.946 316.875 405.946 325.507C405.946 334.138 323.046 341.147 220.943 341.147C118.84 341.147 35.9407 334.138 35.9407 325.507C35.9407 316.875 118.84 309.867 220.943 309.867Z"
-                    fill="#F6C6B7"
+                    fill={isBulbOn ? "#F6C6B7" : "#808080"}
+                    animate={{ fill: isBulbOn ? "#F6C6B7" : "#808080" }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                   />
                 </g>
                 <g opacity="0.4">
-                  <path
+                  <motion.path
                     d="M236.997 318.11C329.33 318.11 404.297 321.722 404.297 326.171C404.297 330.62 329.33 334.232 236.997 334.232C144.664 334.232 69.6965 330.62 69.6965 326.171C69.6965 321.722 144.664 318.11 236.997 318.11Z"
-                    fill="#F6C6B7"
+                    fill={isBulbOn ? "#F6C6B7" : "#808080"}
+                    animate={{ fill: isBulbOn ? "#F6C6B7" : "#808080" }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                   />
                 </g>
                 <g opacity="0.4">
-                  <path
+                  <motion.path
                     d="M276.2 318.11C345.287 318.11 401.381 321.722 401.381 326.171C401.381 330.62 345.287 334.232 276.2 334.232C207.112 334.232 151.019 330.62 151.019 326.171C151.019 321.722 207.112 318.11 276.2 318.11Z"
-                    fill="#DD4D2B"
+                    fill={isBulbOn ? "#DD4D2B" : "#606060"}
+                    animate={{ fill: isBulbOn ? "#DD4D2B" : "#606060" }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                   />
                   <path
                     d="M276.199 318.557C310.737 318.557 342.022 319.46 364.669 320.918C375.994 321.648 385.15 322.516 391.469 323.477C394.632 323.958 397.066 324.46 398.701 324.974C399.522 325.232 400.115 325.485 400.494 325.725C400.899 325.981 400.933 326.139 400.934 326.17C400.934 326.2 400.901 326.359 400.494 326.617C400.115 326.857 399.522 327.11 398.701 327.368C397.066 327.882 394.632 328.384 391.469 328.865C385.15 329.826 375.994 330.694 364.669 331.423C342.022 332.882 310.737 333.785 276.199 333.785C241.663 333.785 210.378 332.882 187.731 331.423C176.405 330.694 167.249 329.826 160.93 328.865C157.768 328.384 155.334 327.882 153.698 327.368C152.878 327.11 152.284 326.857 151.905 326.617C151.498 326.359 151.466 326.2 151.466 326.17C151.466 326.139 151.5 325.981 151.905 325.725C152.284 325.485 152.878 325.232 153.698 324.974C155.334 324.46 157.768 323.958 160.93 323.477C167.249 322.516 176.405 321.648 187.731 320.918C210.378 319.46 241.663 318.557 276.199 318.557Z"
@@ -120,10 +151,15 @@ export default function Blogs() {
                     strokeWidth="0.894341"
                   />
                 </g>
-                <path
+                <motion.path
                   d="M377.514 219.136C371.408 248.463 359.716 274.657 342.439 297.75C333.386 293.543 322.737 294.556 314.728 300.514C296.193 314.302 273.146 322.471 248.289 322.471C246.325 322.471 244.361 322.409 242.397 322.317C182.035 319.154 134.408 268.024 136.924 206.269C139.226 149.274 185.319 102.535 242.244 99.5256C276.583 97.7138 307.762 111.471 329.366 134.349C344.495 150.348 354.928 170.893 358.457 193.678C360.176 204.826 367.295 214.407 377.514 219.136Z"
-                  fill="white"
-                  fillOpacity="0.5"
+                  fill={isBulbOn ? "white" : "#A0A0A0"}
+                  fillOpacity={isBulbOn ? 0.5 : 0.2}
+                  animate={{
+                    fill: isBulbOn ? "white" : "#A0A0A0",
+                    fillOpacity: isBulbOn ? 0.5 : 0.2,
+                  }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                 />
                 <path
                   d="M294.175 251.834L282.912 246.829C276.195 243.85 268.155 245.171 263.18 250.575C259.897 254.138 258.27 258.867 262.659 264.64C272.54 277.66 284.757 265.285 290.25 258.253C291.812 256.287 293.101 254.138 294.175 251.834Z"
@@ -143,13 +179,17 @@ export default function Blogs() {
                   strokeWidth="2"
                   strokeMiterlimit="10"
                 />
-                <path
+                <motion.path
                   d="M434.735 252.575C434.029 264.551 431.387 276.036 427.186 286.723C422.982 297.409 417.151 307.267 410.028 316.019C408.957 317.339 407.85 318.629 406.748 319.888C403.833 323.14 399.134 324.034 395.176 322.222L342.427 297.747C359.704 274.654 371.393 248.46 377.503 219.133L429.085 243.055C432.74 244.744 435.011 248.521 434.735 252.575Z"
-                  fill="white"
+                  fill={isBulbOn ? "white" : "#A0A0A0"}
+                  animate={{ fill: isBulbOn ? "white" : "#A0A0A0" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                 />
-                <path
+                <motion.path
                   d="M169.503 196.405C216.682 149.194 288.635 141.904 343.471 174.516C338.668 160.688 330.748 147.698 319.706 136.649C280.614 97.5264 217.222 97.5264 178.127 136.649C155.102 159.693 145.656 191.166 149.753 221.144C155.304 212.368 161.859 204.052 169.503 196.405Z"
-                  fill="#F9F6F0"
+                  fill={isBulbOn ? "#F9F6F0" : "#808080"}
+                  animate={{ fill: isBulbOn ? "#F9F6F0" : "#808080" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                 />
                 <path
                   d="M377.503 228.029L431.317 253.634"
@@ -157,9 +197,11 @@ export default function Blogs() {
                   strokeWidth="4"
                   strokeMiterlimit="10"
                 />
-                <path
+                <motion.path
                   d="M423.36 289.059C422.09 290.623 420.782 292.149 419.475 293.638C416.026 297.489 410.471 298.542 405.785 296.399L357.781 274.129C353.426 282.076 348.575 289.747 343.097 297.068L395.846 321.543C399.804 323.355 404.5 322.464 407.418 319.209C408.523 317.95 409.624 316.66 410.701 315.343C417.818 306.588 423.652 296.73 427.856 286.047C428.608 284.131 429.292 282.184 429.943 280.218C427.865 283.256 425.677 286.213 423.36 289.059Z"
-                  fill="#CECECE"
+                  fill={isBulbOn ? "#CECECE" : "#808080"}
+                  animate={{ fill: isBulbOn ? "#CECECE" : "#808080" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                 />
                 <path
                   d="M196.458 145.039C212.634 127.384 235.422 119.508 257.52 121.743"
